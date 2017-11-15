@@ -76,7 +76,7 @@ public class AutoAdjustSeekbar extends View {
     //每个分段的长度
     private float selectionLength = 0;
     //是否开启自动调整至节点
-    private boolean isAutoAdjust = false;
+    private boolean isAutoAdjust = true;
 
     private AutoAdjustSeekbarBuilder mConfigBuilder;
 
@@ -221,6 +221,9 @@ public class AutoAdjustSeekbar extends View {
         isEnable = enable;
     }
 
+    public void setAutoAdjust(boolean autoAdjust){
+        this.isAutoAdjust = autoAdjust;
+    }
 
     public OnProgressChangedListener getOnProgressChangedListener() {
         return mOnProgressChangedListener;
@@ -324,7 +327,9 @@ public class AutoAdjustSeekbar extends View {
             if (!isEnable){
                 return false;
             }
-            autoAdjustSection();
+            if (isAutoAdjust) {
+                autoAdjustSection();
+            }
         }
         return true;
     }
