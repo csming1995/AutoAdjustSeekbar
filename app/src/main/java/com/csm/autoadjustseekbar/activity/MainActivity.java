@@ -24,8 +24,12 @@ public class MainActivity extends AppCompatActivity {
             public void onValueChanged(int value) {
                 Log.d("activity", value + " ");
             }
+
+            @Override
+            public void onNodeChanged(int index) {
+                Log.d("activity", index + " ");
+            }
         });
-        mBubbleSeekBar.setEnable(false);
 
         mTestDialogFragment = new TestDialogFragment();
         mTestDialogFragment.show(getFragmentManager(), "test");

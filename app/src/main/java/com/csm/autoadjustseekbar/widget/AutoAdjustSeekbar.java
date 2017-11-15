@@ -29,22 +29,20 @@ public class AutoAdjustSeekbar extends View {
 
     private Context mContext;
 
-    /**
-     * 最大值
-     * 最小值
-     * 当前值
-     */
+    //最大值
     private int mMax;
+    //最小值
     private int mMin;
+    //当前值
     private int mProgress;
 
-    /**
-     * 进度条 进度颜色
-     * 进度条 底条颜色
-     * 进度条 宽度
-     */
+    //进度条 进度颜色
     private int mProgressColor;
+    //节点的颜色
+    private int mNodeColor;
+    //进度条 底条颜色
     private int mBackgroundColor;
+    //进度条 宽度
     private int mProgressBarSize;
 
     //背景
@@ -71,18 +69,14 @@ public class AutoAdjustSeekbar extends View {
     private LinkedList<String> texts;
     //thumb所在的位置索引；
     private int index = 0;
-    private int centerIndex = 0;
+    //中间一个节点的位置
+    private int centerNodeIndex = 0;
+    //分段数
     private int selectionCount = 0;
+    //每个分段的长度
     private float selectionLength = 0;
+    //是否开启自动调整至节点
     private boolean isAutoAdjust = false;
-
-    /**
-     * 当前手指在屏幕中的x轴坐标
-     *
-     * 当前控件在屏幕中的y坐标
-     */
-    private float mScreexX;
-    private float mScreenY;
 
     private AutoAdjustSeekbarBuilder mConfigBuilder;
 
@@ -95,6 +89,8 @@ public class AutoAdjustSeekbar extends View {
 
     public interface OnProgressChangedListener {
         void onValueChanged(int value);
+
+        void onNodeChanged(int index);
     }
 
 
@@ -111,7 +107,6 @@ public class AutoAdjustSeekbar extends View {
         mContext = context;
         initAttr(attrs);
         setPaint();
-
     }
 
     private void initAttr(AttributeSet attrs){
@@ -122,6 +117,8 @@ public class AutoAdjustSeekbar extends View {
         mProgress = typedArray.getInt(R.styleable.AutoAdjustSeekBar_progress, 100);
 
         mProgressColor = typedArray.getColor(R.styleable.AutoAdjustSeekBar_progress_color,
+                ContextCompat.getColor(mContext, R.color.colorSeekBarProgressContent));
+        mNodeColor = typedArray.getColor(R.styleable.AutoAdjustSeekBar_node_color,
                 ContextCompat.getColor(mContext, R.color.colorSeekBarProgressContent));
         mBackgroundColor = typedArray.getColor(R.styleable.AutoAdjustSeekBar_background_color,
                 ContextCompat.getColor(mContext, R.color.colorSeekBarProgressBackground));
@@ -146,9 +143,6 @@ public class AutoAdjustSeekbar extends View {
 
         typedArray.recycle();
 
-
-
-        mScreenY = 0;
         isEnable = true;
     }
 
@@ -190,13 +184,13 @@ public class AutoAdjustSeekbar extends View {
             texts = builder.getTexts();
         }
         selectionCount = texts.size() - 1;
-        centerIndex = selectionCount / 2;
+        centerNodeIndex = selectionCount / 2;
         if (0 < selectionCount){
             selectionLength = (mWidth - mThumbSize) / selectionCount;
         }else {
             selectionLength = mWidth - mThumbSize;
         }
-        index = centerIndex;
+        index = centerNodeIndex;
         isAutoAdjust = builder.isAutoAdjust();
         requestLayout();
     }
@@ -275,17 +269,17 @@ public class AutoAdjustSeekbar extends View {
             canvas.drawBitmap(mBackgroundBitmap, 0, 0, mPaint);
         }
 
-        mPaint.setColor(mProgressColor);
+        //绘制节点
+        mPaint.setColor(mNodeColor);
         if (0 < selectionCount) {
             for (int index = 0; index <= selectionCount; index ++){
-                if (centerIndex == index){
+                if (centerNodeIndex == index){
                     canvas.drawCircle(mThumbSize/2 + selectionLength * index, mHeight / 2, mHeight / 2, mPaint);
                 }else {
                     canvas.drawCircle(mThumbSize/2 + selectionLength * index, mHeight / 2, mHeight / 4, mPaint);
                 }
             }
         }
-
         canvas.translate(-mThumbSize/2, -mThumbSize/2);
         canvas.drawBitmap(mThumbBitmap, position, mHeight/2, mPaint);
     }
@@ -318,13 +312,13 @@ public class AutoAdjustSeekbar extends View {
             //计算当前的进度值
             //position - mThumbSize/2 计算当前点到起点的长度
             mProgress = Math.round(((position - mThumbSize/2)/mAverageValue) + mMin);
-            if (mOnProgressChangedListener != null)
+            if (null != mOnProgressChangedListener) {
                 mOnProgressChangedListener.onValueChanged(mProgress);
+            }
             invalidate();
         }
         else if (MotionEvent.ACTION_UP == event.getActionMasked() ||
                 MotionEvent.ACTION_CANCEL == event.getActionMasked()){
-            Log.d("up:" , "upoupupupup" );
             if (!isEnable){
                 return false;
             }
@@ -336,11 +330,19 @@ public class AutoAdjustSeekbar extends View {
     private void autoAdjustSection(){
         //所在的段
         int selectionIn = (int) ((position - mThumbSize/2) / selectionLength);
+        //和前一个节点的距离
         float preDistance = position - (selectionIn * selectionLength + mThumbSize/2);
+        //和后一个节点的距离
         float nextDistance = selectionLength - preDistance;
+        //最终的位置
         float endPosition = selectionIn * selectionLength + mThumbSize/2;
+        index = selectionIn;
         if (preDistance > nextDistance){
             endPosition = (selectionIn + 1) * selectionLength + mThumbSize/2;
+            index = selectionIn + 1;
+        }
+        if (null != mOnProgressChangedListener) {
+            mOnProgressChangedListener.onNodeChanged(index);
         }
         autoAdjustAnimator = ValueAnimator.ofFloat(position, endPosition);
         autoAdjustAnimator.setDuration(500);
