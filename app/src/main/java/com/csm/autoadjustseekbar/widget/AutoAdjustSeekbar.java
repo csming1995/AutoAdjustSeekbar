@@ -128,9 +128,9 @@ public class AutoAdjustSeekbar extends View {
 
         mProgressBarSize = typedArray.getInt(R.styleable.AutoAdjustSeekBar_progress_size, 10);
 
-        int mBackgroundBitmapId = typedArray.getResourceId(R.styleable.AutoAdjustSeekBar_backgroundBitmap, 0);
-        if (0 != mBackgroundBitmapId){
-            mBackgroundBitmap = BitmapFactory.decodeResource(mContext.getResources(), mBackgroundBitmapId);
+        int backgroundBitmapId = typedArray.getResourceId(R.styleable.AutoAdjustSeekBar_backgroundBitmap, 0);
+        if (0 != backgroundBitmapId){
+            mBackgroundBitmap = BitmapFactory.decodeResource(mContext.getResources(), backgroundBitmapId);
         }
 
         int thumbBitmapId = typedArray.getResourceId(R.styleable.AutoAdjustSeekBar_thumbBitmap,
@@ -138,13 +138,15 @@ public class AutoAdjustSeekbar extends View {
         if (thumbBitmapId == R.drawable.thumb_normal){
             Drawable drawable = getContext().getResources().getDrawable(thumbBitmapId);
             mThumbBitmap = drawableToBitmap(drawable);
+            mThumbSize = mThumbBitmap.getWidth();
         }else {
             mThumbBitmap = BitmapFactory.decodeResource(mContext.getResources(), thumbBitmapId);
+            mThumbSize = mThumbBitmap.getWidth();
         }
 
         typedArray.recycle();
 
-        mThumbSize = mThumbBitmap.getWidth();
+
 
         mScreenY = 0;
         isEnable = true;
