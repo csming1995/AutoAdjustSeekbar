@@ -21,6 +21,8 @@ public class AutoAdjustSeekbarBuilder {
 
     //进度条 进度颜色
     private int progressColor;
+    //节点的颜色
+    private int nodeColor;
     //进度条 底条颜色
     private int backgroundColor;
     //进度条 宽度
@@ -62,7 +64,12 @@ public class AutoAdjustSeekbarBuilder {
         return this;
     }
 
-    public AutoAdjustSeekbarBuilder setBackgroundColor(int backgroundColor) {
+    public AutoAdjustSeekbarBuilder setNodeColor(@ColorInt int nodeColor) {
+        this.nodeColor = nodeColor;
+        return this;
+    }
+
+    public AutoAdjustSeekbarBuilder setBackgroundColor(@ColorInt int backgroundColor) {
         this.backgroundColor = backgroundColor;
         return this;
     }
@@ -109,6 +116,10 @@ public class AutoAdjustSeekbarBuilder {
 
     public int getProgressColor() {
         return progressColor;
+    }
+
+    public int getNodeColor(){
+        return nodeColor;
     }
 
     public int getBackgroundColor() {

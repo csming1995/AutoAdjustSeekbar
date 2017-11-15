@@ -176,6 +176,7 @@ public class AutoAdjustSeekbar extends View {
         mProgress = builder.getProgress();
 
         mProgressColor = builder.getProgressColor();
+        mNodeColor = builder.getNodeColor();
         mBackgroundColor = builder.getBackgroundColor();
 
         mProgressBarSize = builder.getProgressBarSize();
@@ -204,6 +205,7 @@ public class AutoAdjustSeekbar extends View {
         mConfigBuilder.setMax(mMax);
         mConfigBuilder.setProgress(mProgress);
         mConfigBuilder.setProgressColor(mProgressColor);
+        mConfigBuilder.setNodeColor(mNodeColor);
         mConfigBuilder.setBackgroundColor(mBackgroundColor);
         mConfigBuilder.setProgressBarSize(mProgressBarSize);
         mConfigBuilder.setThumbSize(mThumbSize);
