@@ -29,9 +29,12 @@ public class AutoAdjustSeekbarBuilder {
     private int progressBarSize;
     //Thumb的大小
     private float thumbSize;
+    //Text的字号
+    private int textSize;
     //对应各个位置节点的文字；
     private LinkedList<String> texts = new LinkedList<>();
-    private boolean isAutoAdjust;
+    private boolean isAutoAdjust = true;
+    private boolean isShowText = true;
 
 
     private AutoAdjustSeekbar mAutoAdjustSeekbar;
@@ -84,6 +87,11 @@ public class AutoAdjustSeekbarBuilder {
         return this;
     }
 
+    public AutoAdjustSeekbarBuilder setTextSize(int textSize) {
+        this.textSize = textSize;
+        return this;
+    }
+
     public AutoAdjustSeekbarBuilder setTexts(String... texts) {
         int length = texts.length;
         for (int index = 0; index < length; index++){
@@ -99,6 +107,11 @@ public class AutoAdjustSeekbarBuilder {
 
     public AutoAdjustSeekbarBuilder setAutoAdjust(boolean autoAdjust) {
         isAutoAdjust = autoAdjust;
+        return this;
+    }
+
+    public AutoAdjustSeekbarBuilder setShowText(boolean isShowText) {
+        this.isShowText = isShowText;
         return this;
     }
 
@@ -134,11 +147,19 @@ public class AutoAdjustSeekbarBuilder {
         return thumbSize;
     }
 
+    public int getTextSize() {
+        return textSize;
+    }
+
     public LinkedList<String> getTexts() {
         return texts;
     }
 
     public boolean isAutoAdjust() {
         return isAutoAdjust;
+    }
+
+    public boolean isShowText(){
+        return isShowText;
     }
 }

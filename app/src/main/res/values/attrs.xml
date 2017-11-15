@@ -18,6 +18,7 @@
         <attr name="node_color" format="color" />
         <attr name="background_color" format="color"/>
         <attr name="progress_size" format="integer"/>
+        <attr name="text_size" format="dimension"/>
         <attr name="section_count" format="integer"/>
         <attr name="is_auto_adjust" format="boolean"/>
     </declare-styleable>

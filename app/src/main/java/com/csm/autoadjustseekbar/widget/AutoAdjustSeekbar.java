@@ -49,6 +49,8 @@ public class AutoAdjustSeekbar extends View {
     private Bitmap mBackgroundBitmap;
     //Thumb的大小
     private float mThumbSize;
+    //Text的字号
+    private int mTextSize;
     //thumb的样式
     private Bitmap mThumbBitmap;
 
@@ -62,6 +64,9 @@ public class AutoAdjustSeekbar extends View {
     private int mWidth;
 
     private Paint mPaint;
+
+    //绘制文字专用paint
+    private Paint mTextPaint;
 
     private boolean isEnable;
 
@@ -77,6 +82,8 @@ public class AutoAdjustSeekbar extends View {
     private float selectionLength = 0;
     //是否开启自动调整至节点
     private boolean isAutoAdjust = true;
+    //是否开启显示文字；
+    private boolean isShowText = true;
 
     private AutoAdjustSeekbarBuilder mConfigBuilder;
 
@@ -107,6 +114,7 @@ public class AutoAdjustSeekbar extends View {
         mContext = context;
         initAttr(attrs);
         setPaint();
+        setTextPaint();
     }
 
     private void initAttr(AttributeSet attrs){
@@ -124,6 +132,7 @@ public class AutoAdjustSeekbar extends View {
                 ContextCompat.getColor(mContext, R.color.colorSeekBarProgressBackground));
 
         mProgressBarSize = typedArray.getInt(R.styleable.AutoAdjustSeekBar_progress_size, 10);
+        mTextSize = (int) typedArray.getDimension(R.styleable.AutoAdjustSeekBar_text_size, 30);
 
         int backgroundBitmapId = typedArray.getResourceId(R.styleable.AutoAdjustSeekBar_backgroundBitmap, 0);
         if (0 != backgroundBitmapId){
@@ -170,6 +179,15 @@ public class AutoAdjustSeekbar extends View {
         mPaint.setAntiAlias(true);
     }
 
+    private void setTextPaint(){
+        if (null == mTextPaint) {
+            mTextPaint = new Paint();
+        }
+        mTextPaint.setTextAlign(Paint.Align.CENTER);
+        mTextPaint.setTextSize(mTextSize);
+        mTextPaint.setAntiAlias(true);
+    }
+
     public void config(AutoAdjustSeekbarBuilder builder) {
         mMin = builder.getMin();
         mMax = builder.getMax();
@@ -181,6 +199,8 @@ public class AutoAdjustSeekbar extends View {
 
         mProgressBarSize = builder.getProgressBarSize();
         mThumbSize = builder.getThumbSize();
+        mTextSize = builder.getTextSize();
+        setTextPaint();
         if (null != builder.getTexts()){
             texts = builder.getTexts();
         }
@@ -193,6 +213,7 @@ public class AutoAdjustSeekbar extends View {
         }
         index = centerNodeIndex;
         isAutoAdjust = builder.isAutoAdjust();
+        isShowText = builder.isShowText();
         requestLayout();
     }
 
@@ -209,10 +230,12 @@ public class AutoAdjustSeekbar extends View {
         mConfigBuilder.setBackgroundColor(mBackgroundColor);
         mConfigBuilder.setProgressBarSize(mProgressBarSize);
         mConfigBuilder.setThumbSize(mThumbSize);
+        mConfigBuilder.setTextSize(mTextSize);
         if (null != texts){
             mConfigBuilder.setTexts(texts);
         }
         mConfigBuilder.setAutoAdjust(isAutoAdjust);
+        mConfigBuilder.setShowText(isShowText);
 
         return mConfigBuilder;
     }
@@ -242,7 +265,6 @@ public class AutoAdjustSeekbar extends View {
         position = mAverageValue * (mProgress - mMin) + mThumbSize/2;
 
         if (0 < selectionCount){
-            Log.d("selectionLength", selectionLength + " " + (mWidth - mThumbSize));
             selectionLength = (mWidth - mThumbSize) / selectionCount;
         }else {
             selectionLength = mWidth - mThumbSize;
@@ -287,6 +309,10 @@ public class AutoAdjustSeekbar extends View {
         }
         canvas.translate(-mThumbSize/2, -mThumbSize/2);
         canvas.drawBitmap(mThumbBitmap, position, mHeight/2, mPaint);
+        if (isShowText){
+            canvas.translate(mThumbSize/2, mThumbSize/2);
+            canvas.drawText(texts.get(index), position, mHeight/2 + mTextSize/6, mTextPaint);
+        }
     }
 
     @Override
