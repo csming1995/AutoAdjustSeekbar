@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <com.csm.autoadjustseekbar.widget.AutoAdjustSeekbar
+        android:id="@+id/seek_bar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:auto_adjust_seek_bar_max="100"
+        app:auto_adjust_seek_bar_min="0"
+        app:auto_adjust_seek_bar_progress="50"
+        app:auto_adjust_seek_bar_thumbBitmap="@drawable/thumb_normal"
+        app:auto_adjust_seek_bar_progress_color="@color/colorSeekBarProgressContent"
+        app:auto_adjust_seek_bar_background_color="@color/colorSeekBarProgressBackground"
+        app:auto_adjust_seek_bar_progress_size="2"/>
+</LinearLayout>

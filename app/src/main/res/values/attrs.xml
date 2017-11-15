@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomAttributes">
+        <attr name="showNumberIndicator" format="boolean" />
+        <!-- in progress view indicate max value of progress -->
+        <attr name="max" format="integer" />
+        <!-- in progress view indicate min value of progress -->
+        <attr name="min" format="integer" />
+        <!-- in progress view indicate value of progress -->
+        <attr name="value" format="integer" />
+        <!-- in progress view indicate value of progress -->
+
+        <attr name="thumbSize" format="float" />
+        <!-- in float button indicate icon resource -->
+        <attr name="thumbBitmap" format="reference"/>
+        <attr name="autoAdjustSize" format="float"/>
+        <attr name="autoAdjustBitmap" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="MyAutoAdjustSeekBar">
+
+        <!-- in progress view indicate max value of progress -->
+        <attr name="auto_adjust_seek_bar_max" format="integer" />
+        <!-- in progress view indicate min value of progress -->
+        <attr name="auto_adjust_seek_bar_min" format="integer" />
+        <!-- in progress view indicate value of progress -->
+        <attr name="auto_adjust_seek_bar_progress" format="integer" />
+        <!-- in progress view indicate value of progress -->
+
+        <attr name="auto_adjust_seek_bar_thumbBitmap" format="reference"/>
+
+        <attr name="auto_adjust_seek_bar_progress_color" format="color"/>
+        <attr name="auto_adjust_seek_bar_background_color" format="color"/>
+        <attr name="auto_adjust_seek_bar_progress_size" format="integer"/>
+        <attr name="auto_adjust_seek_bar_section_count" format="integer"/>
+        <attr name="auto_adjust_seek_bar_is_auto_adjust" format="boolean"/>
+    </declare-styleable>
+</resources>
