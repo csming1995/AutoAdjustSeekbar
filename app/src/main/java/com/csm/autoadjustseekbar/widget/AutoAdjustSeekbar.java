@@ -311,7 +311,7 @@ public class AutoAdjustSeekbar extends View {
         canvas.drawBitmap(mThumbBitmap, position, mHeight/2, mPaint);
         if (isShowText){
             canvas.translate(mThumbSize/2, mThumbSize/2);
-            canvas.drawText(texts.get(index), position, mHeight/2 + mTextSize/6, mTextPaint);
+            canvas.drawText(texts.get(index), position, mHeight/2 + mTextSize/3, mTextPaint);
         }
     }
 
