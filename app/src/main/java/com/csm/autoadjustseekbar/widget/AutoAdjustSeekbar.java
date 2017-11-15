@@ -47,6 +47,8 @@ public class AutoAdjustSeekbar extends View {
     private int mBackgroundColor;
     private int mProgressBarSize;
 
+    //背景
+    private Bitmap mBackgroundBitmap;
     //Thumb的大小
     private float mThumbSize;
     //thumb的样式
@@ -113,27 +115,31 @@ public class AutoAdjustSeekbar extends View {
     }
 
     private void initAttr(AttributeSet attrs){
-        TypedArray typedArray = mContext.obtainStyledAttributes(attrs, R.styleable.MyAutoAdjustSeekBar);
+        TypedArray typedArray = mContext.obtainStyledAttributes(attrs, R.styleable.AutoAdjustSeekBar);
 
-        mMax = typedArray.getInt(R.styleable.MyAutoAdjustSeekBar_auto_adjust_seek_bar_max, 100);
-        mMin = typedArray.getInt(R.styleable.MyAutoAdjustSeekBar_auto_adjust_seek_bar_min, 0);
-        mProgress = typedArray.getInt(R.styleable.MyAutoAdjustSeekBar_auto_adjust_seek_bar_progress, 100);
+        mMax = typedArray.getInt(R.styleable.AutoAdjustSeekBar_max, 100);
+        mMin = typedArray.getInt(R.styleable.AutoAdjustSeekBar_min, 0);
+        mProgress = typedArray.getInt(R.styleable.AutoAdjustSeekBar_progress, 100);
 
-        mProgressColor = typedArray.getColor(R.styleable.MyAutoAdjustSeekBar_auto_adjust_seek_bar_progress_color,
+        mProgressColor = typedArray.getColor(R.styleable.AutoAdjustSeekBar_progress_color,
                 ContextCompat.getColor(mContext, R.color.colorSeekBarProgressContent));
-        mBackgroundColor = typedArray.getColor(R.styleable.MyAutoAdjustSeekBar_auto_adjust_seek_bar_background_color,
+        mBackgroundColor = typedArray.getColor(R.styleable.AutoAdjustSeekBar_background_color,
                 ContextCompat.getColor(mContext, R.color.colorSeekBarProgressBackground));
 
-        mProgressBarSize = typedArray.getInt(R.styleable.MyAutoAdjustSeekBar_auto_adjust_seek_bar_progress_size, 10);
+        mProgressBarSize = typedArray.getInt(R.styleable.AutoAdjustSeekBar_progress_size, 10);
 
-        int mThumbId = typedArray.getResourceId(R.styleable.MyAutoAdjustSeekBar_auto_adjust_seek_bar_thumbBitmap,
+        int mBackgroundBitmapId = typedArray.getResourceId(R.styleable.AutoAdjustSeekBar_backgroundBitmap, 0);
+        if (0 != mBackgroundBitmapId){
+            mBackgroundBitmap = BitmapFactory.decodeResource(mContext.getResources(), mBackgroundBitmapId);
+        }
+
+        int thumbBitmapId = typedArray.getResourceId(R.styleable.AutoAdjustSeekBar_thumbBitmap,
                 R.drawable.thumb_normal);
-
-        if (mThumbId == R.drawable.thumb_normal){
-            Drawable drawable = getContext().getResources().getDrawable(mThumbId);
+        if (thumbBitmapId == R.drawable.thumb_normal){
+            Drawable drawable = getContext().getResources().getDrawable(thumbBitmapId);
             mThumbBitmap = drawableToBitmap(drawable);
         }else {
-            mThumbBitmap = BitmapFactory.decodeResource(mContext.getResources(), mThumbId);
+            mThumbBitmap = BitmapFactory.decodeResource(mContext.getResources(), thumbBitmapId);
         }
 
         typedArray.recycle();
@@ -260,8 +266,12 @@ public class AutoAdjustSeekbar extends View {
         mPaint.setColor(mProgressColor);
         canvas.drawLine(mThumbSize/2, mHeight/2, position, mHeight/2, mPaint);
 
-        mPaint.setColor(mBackgroundColor);
-        canvas.drawLine(position, mHeight/2, mWidth - mThumbSize/2, mHeight/2, mPaint);
+        if (null == mBackgroundBitmap){
+            mPaint.setColor(mBackgroundColor);
+            canvas.drawLine(position, mHeight/2, mWidth - mThumbSize/2, mHeight/2, mPaint);
+        }else {
+            canvas.drawBitmap(mBackgroundBitmap, 0, 0, mPaint);
+        }
 
         mPaint.setColor(mProgressColor);
         if (0 < selectionCount) {

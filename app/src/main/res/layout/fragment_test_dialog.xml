@@ -16,13 +16,13 @@
             android:id="@+id/seek_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:auto_adjust_seek_bar_max="100"
-            app:auto_adjust_seek_bar_min="0"
-            app:auto_adjust_seek_bar_progress="50"
-            app:auto_adjust_seek_bar_thumbBitmap="@drawable/thumb_normal"
-            app:auto_adjust_seek_bar_progress_color="@color/colorSeekBarProgressContent"
-            app:auto_adjust_seek_bar_background_color="@color/colorSeekBarProgressBackground"
-            app:auto_adjust_seek_bar_progress_size="2"/>
+            app:max="100"
+            app:min="0"
+            app:progress="50"
+            app:thumbBitmap="@drawable/thumb_normal"
+            app:progress_color="@color/colorSeekBarProgressContent"
+            app:background_color="@color/colorSeekBarProgressBackground"
+            app:progress_size="2"/>
     </LinearLayout>
 
 
