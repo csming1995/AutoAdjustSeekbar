@@ -11,22 +11,19 @@ import java.util.LinkedList;
  */
 
 public class AutoAdjustSeekbarBuilder {
-    /**
-     * 最大值
-     * 最小值
-     * 当前值
-     */
+
+    //最大值
     private int max;
+    //最小值
     private int min;
+    //当前值
     private int progress;
 
-    /**
-     * 进度条 进度颜色
-     * 进度条 底条颜色
-     * 进度条 宽度
-     */
+    //进度条 进度颜色
     private int progressColor;
+    //进度条 底条颜色
     private int backgroundColor;
+    //进度条 宽度
     private int progressBarSize;
     //Thumb的大小
     private float thumbSize;
