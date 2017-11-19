@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:gravity="center">
 
-    <com.csm.autoadjustseekbar.widget.AutoAdjustSeekbar
+    <com.csm.autoadjustseekbar.AutoAdjustSeekbar
         android:id="@+id/seek_bar"
         android:layout_width="match_parent"
         android:layout_height="100dp"

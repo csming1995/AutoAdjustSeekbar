@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="AutoAdjustSeekBar">
+
+        <!-- in progress view indicate max value of progress -->
+        <attr name="max" format="integer" />
+        <!-- in progress view indicate min value of progress -->
+        <attr name="min" format="integer" />
+        <!-- in progress view indicate value of progress -->
+        <attr name="progress" format="integer" />
+        <!-- in progress view indicate value of progress -->
+
+        <attr name="thumbBitmap" format="reference"/>
+        <attr name="backgroundBitmap" format="reference"/>
+
+        <attr name="progress_color" format="color"/>
+        <attr name="node_color" format="color" />
+        <attr name="background_color" format="color"/>
+        <attr name="progress_size" format="integer"/>
+        <attr name="text_size" format="dimension"/>
+        <attr name="section_count" format="integer"/>
+        <attr name="is_auto_adjust" format="boolean"/>
+    </declare-styleable>
+</resources>

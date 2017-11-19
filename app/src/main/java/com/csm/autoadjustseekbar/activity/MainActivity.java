@@ -5,8 +5,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.csm.autoadjustseekbar.AutoAdjustSeekbar;
 import com.csm.autoadjustseekbar.R;
-import com.csm.autoadjustseekbar.widget.AutoAdjustSeekbar;
 
 public class MainActivity extends AppCompatActivity {
 

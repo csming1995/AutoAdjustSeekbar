@@ -1,4 +1,4 @@
-package com.csm.autoadjustseekbar.widget;
+package com.csm.autoadjustseekbar;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -12,17 +12,16 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.csm.autoadjustseekbar.R;
-import com.csm.autoadjustseekbar.widget.builder.AutoAdjustSeekbarBuilder;
+import com.csm.R;
+import com.csm.autoadjustseekbar.builder.AutoAdjustSeekbarBuilder;
 
 import java.util.LinkedList;
 
 /**
- * Created by csm on 2017/8/20.
+ * Created by csm on 2017/8/
  */
 
 public class AutoAdjustSeekbar extends View {
